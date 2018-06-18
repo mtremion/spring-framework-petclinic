@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.model;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.*;
 
 import java.util.Locale;
 import java.util.Set;
@@ -30,7 +31,7 @@ public class ValidatorTests {
 
         LocaleContextHolder.setLocale(Locale.ENGLISH);
         Person person = new Person();
-        person.setFirstName("test");
+        person.setFirstName("");
         person.setLastName("smith");
 
         Validator validator = createValidator();
@@ -40,6 +41,7 @@ public class ValidatorTests {
         ConstraintViolation<Person> violation = constraintViolations.iterator().next();
         assertThat(violation.getPropertyPath().toString()).isEqualTo("firstName");
         assertThat(violation.getMessage()).isEqualTo("may not be empty");
+        assertTrue(person.getFirstName().equals("aefjeié"));
     }
 
 }
